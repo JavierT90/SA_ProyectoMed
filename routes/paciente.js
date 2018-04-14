@@ -1,4 +1,4 @@
-var mdlPaciente  = require('../models/medicamento');
+var mdlPaciente  = require('../models/mdlPaciente');
 
 module.exports = function(app) {
 
@@ -22,7 +22,14 @@ module.exports = function(app) {
   });
 
   app.post("/obtenerPaciente", function(req,res){
-    res.status(200).json(0);
+    try {
+        res.status(200).json(0);
+    }
+    catch(err){
+      console.log("Error:" + err.message);
+      res.status(500).json("joder tio");
+    }
+
   });
 
 };
