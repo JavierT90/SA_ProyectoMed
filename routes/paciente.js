@@ -1,4 +1,4 @@
-var mdlPaciente  = require('../models/mdlPaciente');
+var mdlPaciente  = require('../models/paciente');
 
 module.exports = function(app) {
 
@@ -20,6 +20,25 @@ module.exports = function(app) {
       res.status(500).json("joder tio");
     }
   });
+
+  app.post("/trasladarPaciente", function(req,res){
+    try {
+      var parametros = {dpi:req.params.dpi, id_origen:req.params.id_origen, id_destino:req.params.id_destino};
+      mdlPaciente.trasladarPaciente(parametros, function(error, data){
+        if (data && !(data.error)){
+            res.status(200).json(data.resultado);
+        }
+        else {
+            res.status(500).json(data.resultado);
+        }
+      });
+    }
+    catch(err){
+      console.log("Error:" + err.message);
+      res.status(500).json(err.message);
+    }
+  });
+
 
   app.post("/obtenerPaciente", function(req,res){
     try {
