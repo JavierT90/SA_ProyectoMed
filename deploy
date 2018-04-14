@@ -1,5 +1,4 @@
 -#!/bin/sh
-ssh userName@development-server-ip <<EOF
  npm install --production       
  pm2 restart all
  exit
