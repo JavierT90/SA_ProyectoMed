@@ -21,4 +21,8 @@ module.exports = function(app) {
     }
   });
 
+  app.post("/obtenerPaciente", function(req,res){
+    res.status(200).json(0);
+  });
+
 };
