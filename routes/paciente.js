@@ -23,7 +23,10 @@ module.exports = function(app) {
 
   app.post("/trasladarPaciente", function(req,res){
     try {
-      var parametros = {dpi:req.params.dpi, id_origen:req.params.id_origen, id_destino:req.params.id_destino};
+      var parametros = {dpi:req.param('dpi'), id_origen:req.params.id_origen, id_destino:req.params.id_destino};
+      console.log(req.param);
+      console.log(JSON.stringify(req.param));
+      console.log(JSON.stringify(parametros));
       mdlPaciente.trasladarPaciente(parametros, function(error, data){
         if (data && !(data.error)){
             res.status(200).json(data.resultado);

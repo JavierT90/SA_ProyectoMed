@@ -39,7 +39,9 @@ mdlPaciente.insertar = function(registro, callback)
 mdlPaciente.trasladarPaciente = function (data, callback) {
 	try {
 		if (dbConn){
-			var sql = 'call sp_traslado_paciente(?,?,?);';
+			//var sql = 'call sp_traslado_paciente(?,?,?);';
+			var sql = 'INSERT INTO traslado_paciente(fecha, id_paciente, id_origen, id_destino) VALUES(DATE(NOW()), ?, ?, ?);';
+			console.log(JSON.stringify(data));
 			var params = [data.dpi, data.id_origen, data.id_destino];
 			dbConn.query(sql,params,function(error, results, fields){
 				if (error){
