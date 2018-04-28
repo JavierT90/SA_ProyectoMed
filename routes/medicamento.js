@@ -46,7 +46,7 @@ module.exports = function(app) {
   app.post("/ConsultaExistencia", function(request,res) {
     //almacenamos los datos del formulario en un objeto
     try {
-      var parametros = {id_medicamento:request.body.id_medicamento};
+      var parametros = {id_medicamento:request.body.Codigo};
         mdlMedicamento.ConsultaExistencia(parametros,function(error, data) {
           if(data) {
             res.status(200).json(data);
