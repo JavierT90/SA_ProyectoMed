@@ -40,6 +40,25 @@ module.exports = function(app) {
     }
   });
 
+  app.post("/DespachoReceta", function(request,res){
+    try {
+      var parametros = {id_receta:request.body.Receta};
+      mdlPaciente.DespachoReceta(parametros, function(error, data){
+        if (data && !(data.error)){
+          res.status(200).json(data);
+        }
+        else {
+            //res.status(500).json(data.resultado);
+            res.status(200).json(data);
+        }
+      });
+    }
+    catch(err){
+      console.log("Error:" + err.message);
+      res.status(500).json(err.message);
+    }
+  });
+
 
   app.post("/obtenerPaciente", function(req,res){
     try {
