@@ -47,6 +47,7 @@ module.exports = function(app) {
     //almacenamos los datos del formulario en un objeto
     try {
       var parametros = {id_medicamento:request.body.Codigo};
+      console.log(parametros);
         mdlMedicamento.ConsultaExistencia(parametros,function(error, data) {
           if(data) {
             res.status(200).json(data);
@@ -62,7 +63,11 @@ module.exports = function(app) {
   app.post("/TrasladoMedicamento", function(request,res) {
     //almacenamos los datos del formulario en un objeto
     try {
-      var parametros = {id_origen:request.body.id_origen, id_destino:request.body.id_destino};
+      var parametros = {
+        id_origen:request.body.Origen,
+        id_destino:request.body.Destino,
+        medicamentos:request.body.Medicamentos
+       };
         mdlMedicamento.TrasladoMedicamento(parametros,function(error, data) {
           if(data) {
             res.status(200).json(data);
