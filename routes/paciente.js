@@ -21,18 +21,16 @@ module.exports = function(app) {
     }
   });
 
-  app.post("/trasladarPaciente", function(req,res){
+  app.post("/trasladarPaciente", function(request,res){
     try {
-      var parametros = {dpi:req.param('dpi'), id_origen:req.params.id_origen, id_destino:req.params.id_destino};
-      console.log(req.param);
-      console.log(JSON.stringify(req.param));
-      console.log(JSON.stringify(parametros));
+      var parametros = {dpi:request.body.dpi, id_origen:request.body.id_origen, id_destino:request.body.id_destino};
       mdlPaciente.trasladarPaciente(parametros, function(error, data){
         if (data && !(data.error)){
-            res.status(200).json(data.resultado);
+          res.status(200).json(data);
         }
         else {
-            res.status(500).json(data.resultado);
+            //res.status(500).json(data.resultado);
+            res.status(200).json(data);
         }
       });
     }

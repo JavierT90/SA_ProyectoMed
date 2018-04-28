@@ -6,7 +6,7 @@ connection = mysql.createConnection(
 		host: '35.196.238.102',
 		user: 'root',
 		password: 'ubuntu1604',
-		database: 'centro_salud'
+		database: 'farmacia'
 	}
 );
 

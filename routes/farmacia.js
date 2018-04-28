@@ -42,14 +42,16 @@ module.exports = function(app) {
     }
   });
 
-
-  app.post("/ConsultaExistencia", function(request,res) {
+  app.get("/trasladoMed", function(req,res) {
     //almacenamos los datos del formulario en un objeto
     try {
-      var parametros = {id_medicamento:request.body.id_medicamento};
-        mdlMedicamento.ConsultaExistencia(parametros,function(error, data) {
-          if(data) {
-            res.status(200).json(data);
+        var cantRegistros = 0;
+        var regOperados = 0;
+        var param = {'idMedicamento': req.param('idMedicamento') };
+        //
+        mdlMedicamento.solicitaTraslado(param,function(error, data) {
+          if(data && data.OperacionExitosa) {
+            res.status(200).json(0);
           }
         });
     }
@@ -59,22 +61,5 @@ module.exports = function(app) {
     }
   });
 
-  app.post("/TrasladoMedicamento", function(request,res) {
-    //almacenamos los datos del formulario en un objeto
-    try {
-      var parametros = {id_origen:request.body.id_origen, id_destino:request.body.id_destino};
-        mdlMedicamento.TrasladoMedicamento(parametros,function(error, data) {
-          if(data) {
-            res.status(200).json(data);
-          }
-        });
-    }
-    catch(err){
-      console.log("Error:" + err.message);
-      res.status(500).json("joder tio");
-    }
-  });
-
-//
 
 };

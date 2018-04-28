@@ -1,10 +1,10 @@
 
 var dbConn  = require('../config/db');
 
-var mdlPaciente = {};
+var mdlFarmacia = {};
 
 //funcionar para insertar diagnostico
-mdlPaciente.insertar = function(registro, callback)
+mdlFarmacia.trasladoMedicamento = function(registro, callback)
 {
 	try {
 		if (dbConn)
@@ -36,30 +36,19 @@ mdlPaciente.insertar = function(registro, callback)
 	}
 }
 
-mdlPaciente.trasladarPaciente = function (data, callback) {
+mdlFarmacia.trasladarPaciente = function (data, callback) {
 	try {
 		if (dbConn){
 			//var sql = 'call sp_traslado_paciente(?,?,?);';
-			var sql = 'call sp_traslado_paciente ( ?, ?, ?);';
+			var sql = 'INSERT INTO traslado_paciente(fecha, id_paciente, id_origen, id_destino) VALUES(DATE(NOW()), ?, ?, ?);';
+			console.log(JSON.stringify(data));
 			var params = [data.dpi, data.id_origen, data.id_destino];
-			var resultado = {"Exito":null, "Error":null}
-			dbConn.query(sql,params,function(error, result, fields){
+			dbConn.query(sql,params,function(error, results, fields){
 				if (error){
-					resultado.Error = 1;
-					resultado.Exito = null;
-					callback (null, resultado);
+					callback (null, {resultado: error.message, error:true});
 				}
 				else {
-					if (result[0].length > 0) {
-							resultado.Exito = 1;
-							resultado.Error = null;
-							callback (null, resultado);
-					}
-					else {
-						resultado.Error = 1;
-						resultado.Exito = null;
-						callback (null, resultado);
-					}
+					callback (null, {resultado: 'Traslado realizado con éxito.', error:false});
 				}
 			});
 		}
@@ -71,4 +60,4 @@ mdlPaciente.trasladarPaciente = function (data, callback) {
 }
 
 //exportamos el objeto para tenerlo disponible en la zona de rutas
-module.exports = mdlPaciente;
+module.exports = mdlFarmacia;
