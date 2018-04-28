@@ -1,5 +1,5 @@
 -#!/bin/sh
- ssh elmer_garcia90@35.196.238.102
+ ssh -i llave elmer_garcia90@35.196.238.102
  cd /home/elme_garcia90/servicios_sa
  git pull
  npm install --production
