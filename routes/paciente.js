@@ -21,7 +21,7 @@ module.exports = function(app) {
     }
   });
 
-  app.post("/trasladarPaciente", function(request,res){
+  app.post("/TrasladarPaciente", function(request,res){
     try {
       var parametros = {dpi:request.body.Paciente, id_origen:request.body.Origen, id_destino:request.body.Destino};
       mdlPaciente.trasladarPaciente(parametros, function(error, data){
@@ -63,6 +63,25 @@ module.exports = function(app) {
     try {
       var parametros = {dpi:request.body.DPI};
       mdlPaciente.HistorialPaciente(parametros, function(error, data){
+        if (data && !(data.error)){
+          res.status(200).json(data);
+        }
+        else {
+            //res.status(500).json(data.resultado);
+            res.status(200).json(data);
+        }
+      });
+    }
+    catch(err){
+      console.log("Error:" + err.message);
+      res.status(500).json(err.message);
+    }
+  });
+
+  app.post("/ReporteMorbilidad", function(request,res){
+    try {
+      var parametros = {};
+      mdlPaciente.ReporteMorbilidad(parametros, function(error, data){
         if (data && !(data.error)){
           res.status(200).json(data);
         }

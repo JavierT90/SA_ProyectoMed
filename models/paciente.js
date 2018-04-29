@@ -36,7 +36,7 @@ mdlPaciente.insertar = function(registro, callback)
 	}
 }
 
-mdlPaciente.trasladarPaciente = function (data, callback) {
+mdlPaciente.TrasladarPaciente = function (data, callback) {
 	try {
 		if (dbConn){
 			//var sql = 'call sp_traslado_paciente(?,?,?);';
@@ -197,6 +197,60 @@ mdlPaciente.HistorialPaciente = function(data, callback){
 		callback(null, resultado);
 	}
 }
+
+mdlPaciente.ReporteMorbilidad = function(data, callback){
+	try {
+		if (dbConn){
+			//var sql = 'call sp_traslado_paciente(?,?,?);';
+			var sql = 'call sp_reporte_morbilidad ();';
+			var resultado = {diagnostico:[]};
+
+			dbConn.query(sql,function(error, result, fields){
+				if (error){
+					callback (null, resultado);
+				}
+				else {
+					if (result[0].length > 0) {
+						var cant = result[0].length;
+						for (var i=0;i<cant;i++){
+							var diagnostico = {
+								Id:'',
+								Nombre:'',
+								"0-5":0,
+								"6-15":0,
+								"16-20":0,
+								"21-45":0,
+								"46-60":0,
+								">60":0,
+								Total:0
+							};
+							diagnostico.Id = result[0][i].Id;
+							diagnostico.Nombre = result[0][i].Nombre;
+							diagnostico.Total = result[0][i].Total;
+							diagnostico['0-5'] = result[0][i]['0-5'];
+							diagnostico['6-15'] = result[0][i]['6-15'];
+							diagnostico['21-45'] = result[0][i]['21-45'];
+							diagnostico['46-60'] = result[0][i]['46-60'];
+							diagnostico['>60'] = result[0][i]['>60'];
+							resultado.diagnostico.push(diagnostico);
+						}
+						callback (null, resultado);
+					}
+					else {
+						callback (null, resultado);
+					}
+				}
+			});
+		}
+	}
+	catch(err){
+		var msj = "Error al trasladar paciente, error:" + err.message;
+		console.log("Error al trasladar paciente, error:" + err.message);
+		var resultado = {"Exito":0, "Error":msj}
+		callback(null, resultado);
+	}
+}
+
 
 //exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = mdlPaciente;
