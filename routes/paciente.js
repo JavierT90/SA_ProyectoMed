@@ -24,7 +24,7 @@ module.exports = function(app) {
   app.post("/TrasladarPaciente", function(request,res){
     try {
       var parametros = {dpi:request.body.Paciente, id_origen:request.body.Origen, id_destino:request.body.Destino};
-      mdlPaciente.trasladarPaciente(parametros, function(error, data){
+      mdlPaciente.TrasladarPaciente(parametros, function(error, data){
         if (data && !(data.error)){
           res.status(200).json(data);
         }
