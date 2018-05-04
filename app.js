@@ -20,7 +20,7 @@ var server = app.listen(port, function () {
 });
 
 app.get('/', function(req, res){
-    res.sendfile('indice.html');
+    res.send('Grupo 3');
 });
 
 //require('./app/routes')(app, {});
