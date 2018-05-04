@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "start": "nodemon app.js",
-    "stop": "forever stopall"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",

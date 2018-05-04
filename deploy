@@ -1,4 +1,5 @@
-npm install --production
- pm2 restart all
+-#!/bin/sh
+  npm install --production
+  pm2 start app.js
  exit
 EOF
