@@ -20,10 +20,10 @@ chai.use(chaiHttp);
 
 
 describe('Test group', function() {
-    var host = "http://localhost:9090";
+    var host = "http://35.196.238.102:9090";
 
     it('Conexión con el servidor', function(done) {
-        request('http://localhost:9090' , function(error, response, body) {
+        request(host , function(error, response, body) {
             expect(body).to.equal('Grupo 3');
             done();
         });
