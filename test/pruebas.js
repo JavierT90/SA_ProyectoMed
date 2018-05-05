@@ -21,13 +21,13 @@ chai.use(chaiHttp);
 
 describe('Test group', function() {
     var host = "http://35.196.238.102:9090";
-
+    /*
     it('Conexión con el servidor', function(done) {
         request(host , function(error, response, body) {
             expect(body).to.equal('Grupo 3');
             done();
         });
-    });
+    });*/
 
     it('Prueba de Servicio: TrasladarPaciente', function(done) {
         chai
